@@ -1,5 +1,4 @@
 # INSTA341
-## Project
 
 ## Objective
 * Develop a simplified version of Instagram
