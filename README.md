@@ -13,10 +13,10 @@ Instagram is a viusal platform allowing users to upload inspirational images, co
 
 ## Team Members
 * Amneet Singh - amneet270 
-* Mohamed Amine Kihal
+* Mohamed Amine Kihal - instamine
 * Muhamad Nurie - nuzurie
 * Neerujah Ledchumanan - nouj
-* Vithura Muthiah -vithura14
+* Vithura Muthiah - vithura14
 * Yasaman Fahm - yasfahm
 
 ## Technologies
