@@ -2,7 +2,7 @@
 ## Project
 ## Team Members
 ## Technologies
-*Python
-*Django
-*HTML/CSS
-*JavaScript
+* Python
+* Django
+* HTML/CSS
+* JavaScript
