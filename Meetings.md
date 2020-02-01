@@ -1,10 +1,10 @@
 
 **MEETINGS LOGS: **
 
-January 30th 2020:
-     * Submitted the first version of the two first meetings
+* January 30th 2020:
+     * Submitted the contenets of the first two meetings
      * Format the md file
 
-February 1st 2020:
-     * Update the third meetings
+* February 1st 2020:
+     * Update the other meetings we had so far
 
