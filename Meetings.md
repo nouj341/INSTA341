@@ -1,5 +1,5 @@
 
-**MEETINGS LOGS: **
+### MEETINGS LOGS:
 
 * January 30th 2020:
      * Submitted the contenets of the first two meetings
