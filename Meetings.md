@@ -1,3 +1,4 @@
+
 **MEETINGS LOGS: **
 
 January 30th 2020:
