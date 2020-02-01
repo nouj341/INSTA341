@@ -5,6 +5,16 @@
     <title>Home</title>
 </head>
 <body>
+    <div class="col-md-8">
+          {% if messages %}
+              {% for message in messages %}
+                  <div class="alert alert-{{ message.tag }}">
+                    {{ message }}
+                  </div>
+              {% endfor %}
+          {% endif %}
+          {% block content %}{% endblock %}
+        </div>
     <h1>Home Page!</h1>
 </body>
 </html>
