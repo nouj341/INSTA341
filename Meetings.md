@@ -6,5 +6,7 @@ January 30th 2020:
      * Format the md file
 
 February 1st 2020:
-     * Update the third meetings
+     * Updated the Meetings wiki page
+     * Added Brainstorm wiki page
+     
 
