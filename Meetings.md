@@ -10,4 +10,9 @@
      * Added Brainstorm wiki page
      * Fixed layout on the Wiki Meetings page
      
+* February 3rd 2020:
+     * Update the meetings page
+  
+     
+     
 
