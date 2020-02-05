@@ -12,6 +12,10 @@
      
 * February 3rd 2020:
      * Update the meetings page
+     
+* February 4th 2020:
+     * Brainstorm ideas for sprint #3 has been written in the Brainstorm page in the Wiki tab 
+  
   
      
      
