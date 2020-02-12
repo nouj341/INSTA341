@@ -25,6 +25,7 @@
      * Task Breakdown 
            * User story: follow [Issue #8]
            * User story: comment [Issue #7]
+           * User story: post and caption [Issue #6]
            
   
 
