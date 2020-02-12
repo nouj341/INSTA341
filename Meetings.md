@@ -2,7 +2,7 @@
 ## Meetings logs:
 
 * January 30th 2020:
-     * Submitted the contenets of the first two meetings
+     * Submitted the contents of the first two meetings
      * Format the md file
 
 * February 1st 2020:
@@ -14,9 +14,15 @@
      * Update the meetings page
      
 * February 4th 2020:
-     * Brainstorm ideas for sprint #3 has been written in the Brainstorm page in the Wiki tab 
+     * Brainstorm ideas for sprint #3 has been written in the Brainstorm page in the Wiki tab
+
+* February 5th 2020:
+     * Update meeting on the Wiki Meetings page
+     
+* February 12th 2020:
+     * Update meeting on the Wiki Meetings page
   
-  
+
      
      
 
