@@ -24,3 +24,4 @@ Instagram is a viusal platform allowing users to upload inspirational images, co
 * Django
 * HTML/CSS
 * JavaScript
+* Bootstrap
