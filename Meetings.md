@@ -22,7 +22,10 @@
 * February 12th 2020:
      * Update meeting on the Wiki Meetings page
      * Brainstorm page has been updated with information for the 3rd Sprint
-     * Task Breakdown for second core feature. [Issue #8]
+     * Task Breakdown 
+           * User story: follow [Issue #8]
+           * User story: comment [Issue #7]
+           
   
 
      
