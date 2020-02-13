@@ -1,30 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+   <title> Instagram </title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   <link rel="stylesheet" type="text/css" href="{% static '/styleUpdated.css' %}" />
 </head>
-<body>
-        {% block content %}
-            <div class="content-section">
-                <form method="POST">
-                    {% csrf_token %}
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Login</legend>
-                        {{ form.as_p }}
-                    </fieldset>
-                    <div class="form-group">
-                        <button class="btn btn-outline-info" type="submit">Login</button>
-                    </div>
-                </form>
-                <div class="border-top pt-3">
-                    <small class="text-muted">
-                        Don't have an account? <a class="ml-2" href='{% url 'register' %}'>Sign Up</a>
-                    </small>
-                </div>
-            </div>
+
+   <body>
+    {% block content %}
+   <div class="login-box">
+   <img width="100" height="100" src="../static/avatar.png" class="avatar">
+   <br />
+         <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Login Here</legend>
+             <form method="POST">
+                 {% csrf_token %}
+                    {{ form.as_p }}
+                 <div align = "middle">
+                      <button class="btn btn-outline-info" style = color:#33E6FF type="submit">Login</button>
+                 </div>
+                 <div class="strike">
+                     <span>Or</span>
+                 </div>
+                 <div align="middle">
+                      <a class="btn btn-outline-info" href="{% url 'register' %}" style = color:#33E6FF >Sign Up</a>
+                 </div>
+             </form>
+         </fieldset>
+        <!--
+        <h1>Login Here</h1>
+            <form>
+            <p>Username</p>
+            <input type="text" name="username" placeholder="Enter Username">
+            <p>Password</p>
+            <input type="password" name="password" placeholder="Enter Password">
 
 
-        {% endblock content %}
-</body>
+            <a href="#">Forgot Password?</a>
+            </form>
+            -->
+      </div>
+
+   </body>
+
+       {% endblock content %}
 </html>
