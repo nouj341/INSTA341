@@ -1,23 +1,30 @@
 <html>
 <head>
-	<title> Instagram </title>
+   <title> Instagram </title>
     {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="{% static '/styleUpdated.css' %}" />
+   <link rel="stylesheet" type="text/css" href="{% static '/styleUpdated.css' %}" />
 </head>
 
-	<body>
+   <body>
     {% block content %}
-	<div class="login-box">
-	<img width="100" height="100" src="../static/avatar.png" class="avatar">
-	<br />
+   <div class="login-box">
+   <img width="100" height="100" src="../static/avatar.png" class="avatar">
+   <br />
          <fieldset class="form-group">
                         <legend class="border-bottom mb-4">Login Here</legend>
              <form method="POST">
                  {% csrf_token %}
                     {{ form.as_p }}
-                 <button class="btn btn-outline-info" type="submit">Login</button>
-                 <a href="{% url 'register' %}">Sign Up</a>
+                 <div align = "middle">
+                      <button class="btn btn-outline-info" style = color:#33E6FF type="submit">Login</button>
+                 </div>
+                 <div class="strike">
+                     <span>Or</span>
+                 </div>
+                 <div align="middle">
+                      <a class="btn btn-outline-info" href="{% url 'register' %}" style = color:#33E6FF >Sign Up</a>
+                 </div>
              </form>
          </fieldset>
         <!--
@@ -32,9 +39,9 @@
             <a href="#">Forgot Password?</a>
             </form>
             -->
-		</div>
+      </div>
 
-	</body>
+   </body>
 
        {% endblock content %}
 </html>
