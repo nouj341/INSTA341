@@ -1,18 +1,13 @@
+--- 
+env: 
+  - DJANGO_VERSION=1.8.2
+ignore: 
+  - "*.md"
+install: 
+  - "pip install -r requirements.txt"
 language: python
-python:
+python: 
   - "3.6"
   - "3.7"
   - "3.8"
-  
-ignore:
-- *.md
 
-env:
-      - DJANGO_VERSION=1.7.8
-      - DJANGO_VERSION=1.8.2
-      
-install:
-      - pip install -q Django==$DJANGO_VERSION
-      - pip install -r requirements.txt
-      
- script: python manage.py test
