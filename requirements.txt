@@ -1,3 +1,0 @@
-Pillow
-Django-cleanup
-sqlparse
