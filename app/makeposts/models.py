@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-
+from datetime import datetime
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -16,3 +16,23 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
+
+
+class Following(models.Model):
+    user_id = models.IntegerField()
+    follower = models.IntegerField()
+
+    class Meta:
+        db_table = "following"
+        unique_together = (("user_id", "follower"),)
+
+
+class Comments(models.Model):
+    post_id = models.IntegerField()
+    commenter = models.IntegerField()
+    comment_time = models.DateTimeField(default=datetime.now, blank=True)
+    comment = models.TextField()
+    username = models.CharField(max_length=150)
+
+    class Meta:
+        db_table = "comments"

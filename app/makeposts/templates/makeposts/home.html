@@ -3,10 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <style>
+
+        body {
+          background-color: gray;
+        }
+
+        .title {
+          background-color: cornflowerblue;
+          color: white;
+          font-weight: bold;
+          padding-left: 20px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          font-size: 24px;
+        }
+
+        .main-content {
+          background-color: lightgray;
+          border-radius: 10px;
+          padding: 0px;
+          overflow: hidden;
+          width: 66vw;
+          float: none;
+          margin: 0 auto;
+        }
+
+        .post-container {
+          margin: 20px;
+          padding: 15px;
+          background-color: white;
+          border-radius: 5px;
+          display: block !important;
+        }
+
+        .media-body {
+          display: block !important;
+        }
+
+        .img {
+          max-width: 100%;
+          max-height: 80vh;
+        }
+
+        @media only screen and (max-width: 768px) {
+          .main-content { width: 100%; border-radius: 0; }
+          .title { border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;}
+        }
+    </style>
 </head>
 <body>
-    <div class="col-md-8">
-        <h1>Home Page!</h1>
+    <div class="main-content">
+        <div class="title">Home Page!</div>
           {% if messages %}
               {% for message in messages %}
                   <div class="alert alert-{{ message.tag }}">
@@ -17,16 +65,17 @@
           {% endif %}
           {% block content %}
               {% for post in posts %}
-        <article class="media content-section">
+        <article class="media content-section post-container">
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="#">{{ post.author }}</a>
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
-            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+            <h2><a class="article-title" href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
-              <p><img src="{{ post.image.url }}"></p>
+              <p><img src="{{ post.image.url }}" class="img"></p>
           </div>
+          {% if post.author_id in following %}<a href="{% url 'post_detail' post.id %}unfollow">Unfollow</a>{% else %}<a href="{% url 'post_detail' post.id %}follow">Follow</a>{% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a>
         </article>
     {% endfor %}
           {% endblock %}
