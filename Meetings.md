@@ -35,9 +35,11 @@
      * Update Brainstorm page
        * Task Breakdown of additional feature which will be for sprint #4
         * User story: search bar + button [Issue #43]
-        * Story points have been assigned to each task of the addtional feature
-        
-        
+        * Story points have been assigned to each task of the additional feature
+
+* March 4th 2020:
+     * Update Brainstorm page
+
    
     
     
