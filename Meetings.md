@@ -23,9 +23,25 @@
      * Update meeting on the Wiki Meetings page
      * Brainstorm page has been updated with information for the 3rd Sprint
      * Task Breakdown 
-           * User story: follow [Issue #8]
-           * User story: comment [Issue #7]
-           * User story: post and caption [Issue #6]
+        * User story: follow [Issue #8]
+        * User story: comment [Issue #7]
+        * User story: post and caption [Issue #6]
+        
+* February 28th 2020:
+     * Update two meetings on the Wiki Meetings page
+     * Milestone for Sprint 1 and Sprint 2 have been closed 
+             
+* March 2nd 2020:
+     * Update Brainstorm page
+       * Task Breakdown of additional feature which will be for sprint #4
+        * User story: search bar + button [Issue #43]
+        * Story points have been assigned to each task of the addtional feature
+        
+        
+   
+    
+    
+        
            
   
 
