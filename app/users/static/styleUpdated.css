@@ -2,8 +2,9 @@ body {
     margin: 0;
     padding: 0;
     background-size: cover;
-    background: url(loginBackground.JPG) center;
+    background: url(loginBackground.JPG) center fixed no-repeat;
     font-family: sans-serif;
+    overflow-x: hidden;
 }
 
 .login-box {
@@ -150,7 +151,7 @@ h1 {
     color: #2cc3dc;
 }
 
-.error {
+/*.error {
     width: 320px;
     height: 550px;
     background: rgba(0, 0, 0, 1);
@@ -162,4 +163,4 @@ h1 {
     box-sizing: border-box;
     padding: 70px 30px;
     opacity: 0.8;
-}
+}*/

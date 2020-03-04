@@ -3,34 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/home.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-    <div class="col-md-8">
-        <h1>Home Page!</h1>
-          {% if messages %}
-              {% for message in messages %}
-                  <div class="alert alert-{{ message.tag }}">
-                    {{ message }}
-                  </div>
-              {% endfor %}
+<div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-          {% endif %}
-          {% block content %}
-              {% for post in posts %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ post.author }}</a>
-              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-            </div>
-            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
-              <p><img src="{{ post.image.url }}"></p>
-          </div>
-        </article>
-    {% endfor %}
-          {% endblock %}
+        <a class="navbar-brand" href="{% url 'insta-home' %}">INSTAGRAM</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+
+            </ul>
+
+
+            <form class="form-inline">
+                <div class="md-form my-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0 text-light" type="submit">Search</button>
+                </div>
+            </form>
         </div>
+    </nav>
 
+    <div class="homepage">
+        <div class="col-md-12">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tag }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+            {% endif %}
+            {% block content %}
+                {% for post in posts %}
+                    <article class="media content-section">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                <a class="mr-2" href="#">{{ post.author }}</a>
+                                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                            </div>
+                            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+                            </h2>
+                            <p class="article-content">{{ post.content }}</p>
+                            <p><img src="{{ post.image.url }}"></p>
+                        </div>
+                    </article>
+                {% endfor %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
 </body>
 </html>
