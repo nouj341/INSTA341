@@ -57,10 +57,9 @@
                                 <a class="mr-2" href="#">{{ post.author }}</a>
                                 <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
                             </div>
-                            <h2><a class="article-title" href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                            <h2><a class="article-title">{{ post.title|title}}</a>
                             </h2>
-                            <p class="article-content">{{ post.content }}</p>
-                            <p><img src="{{ post.image.url }}"></p>
+                            <p><a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a></p>
                         </div>
                         {% if post.author_id in following %}
                             <a href="{% url 'post_detail' post.id %}unfollow">Unfollow</a>{% else %}
