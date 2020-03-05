@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from datetime import datetime
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -30,7 +29,7 @@ class Following(models.Model):
 class Comments(models.Model):
     post_id = models.IntegerField()
     commenter = models.IntegerField()
-    comment_time = models.DateTimeField(default=datetime.now, blank=True)
+    comment_time = models.DateTimeField(default=timezone.now, blank=True)
     comment = models.TextField()
     username = models.CharField(max_length=150)
 
