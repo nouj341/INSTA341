@@ -1,17 +1,16 @@
---- 
-before_install: 
+---
+before_install:
   - "cd app"
-env: 
-  - DJANGO_VERSION=1.8.2
-ignore: 
+env:
+  - DJANGO_VERSION=3.0.4
+ignore:
   - "*.md"
-install: 
+install:
   - "pip install -r requirements.txt"
 language: python
-python: 
+python:
   - "3.6"
   - "3.7"
   - "3.8"
-script: 
+script:
   - "python manage.py test"
-
