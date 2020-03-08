@@ -1,0 +1,22 @@
+{% extends 'makeposts/home.html' %}
+{% block content1 %}
+    {% if user.id in follow %}
+        <a href="{% url 'profile-view' user.username %}unfollow">Unfollow</a>{% else %}
+                            <a href="{% url 'profile-view' user.username %}follow">Follow</a>
+    {% endif %}
+
+    {% for post in posts %}
+        <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <!-- THIS IS NOT A LINK! PLEASE FIX IT -->
+                <a class="mr-2" href="#">{{ post.author | title}}</a>
+                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title">{{ post.title|title }}</a>
+            </h2>
+            <p><a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a></p>
+        </div>
+        </article>
+    {% endfor %}
+{% endblock content1 %}
