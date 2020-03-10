@@ -42,7 +42,9 @@
 
 * March 10th 2020
      * Update Brainstorm page
-       * Fixed the format error [Issue #47] for the acceptance test (only completed for the core features)
+       * Fixed the format error [Issue #47] for the acceptance test for both core and addtional features
+     * Update Meetings page
+       * Included two meetings on the Wiki Meetings page
    
     
     
