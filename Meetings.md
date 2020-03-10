@@ -40,6 +40,9 @@
 * March 4th 2020:
      * Update Brainstorm page
 
+* March 10th 2020
+     * Update Brainstorm page
+       * Fixed the format error [Issue #47] for the acceptance test (only completed for the core features)
    
     
     
