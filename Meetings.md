@@ -45,6 +45,11 @@
        * Fixed the format error [Issue #47] for the acceptance test for both core and addtional features
      * Update Meetings page
        * Included two meetings on the Wiki Meetings page
+* March 22nd 2020
+     * Update Meetings page
+       * Included new meeting after recent changes on deadlines
+       * Work separated for report and presentation
+  
    
     
     
