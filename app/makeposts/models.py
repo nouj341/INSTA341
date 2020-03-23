@@ -26,6 +26,15 @@ class Following(models.Model):
         unique_together = (("user_id", "follower"),)
 
 
+class Likes(models.Model):
+    post_id = models.IntegerField()
+    liked_by = models.IntegerField()
+
+    class Meta:
+        db_table = "likes"
+        unique_together = (("post_id", "liked_by"),)
+
+
 class Comments(models.Model):
     post_id = models.IntegerField()
     commenter = models.IntegerField()
