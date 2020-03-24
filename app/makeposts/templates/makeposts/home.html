@@ -8,8 +8,63 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        #search_suggestions {
+            position: absolute;
+            display: none;
+            top: 68px;
+            text-align: center;
+            z-index: 1;
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+            min-width: 100px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            overflow: hidden;
+            transform-origin: top;
+        }
+
+        .suggestions_active {
+            display: block !important;
+        }
+
+        #search_suggestions div {
+            display: block;
+            color: gray;
+            background-color: transparent;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            font-size: 18px;
+            text-decoration: none;
+            transition: 0.6s;
+            text-transform: none !important;
+        }
+
+        #search_suggestions div:hover {
+            background-color: gray;
+            color: white;
+            cursor: pointer;
+        }
+
+        .likes_count {
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-left: 8px;
+            margin-right: 8px;
+            background-color: cornflowerblue;
+            border-radius: 20px;
+            font-weight: bold;
+            color: white;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <div>
+    {% load get_item %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
         <a class="navbar-brand" href="{% url 'insta-home' %}">INSTAGRAM</a>
@@ -30,13 +85,16 @@
             </ul>
 
 
-            <form class="form-inline">
+            <form class="form-inline" method="GET" action="search/">
                 <div class="md-form my-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <input name="q" id="search_txt" onfocusout="close_suggestions()" oninput="search_suggest()" autocomplete="off" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0 text-light" type="submit">Search</button>
+                </div>
+                <div id="search_suggestions">
                 </div>
             </form>
         </div>
+
     </nav>
 
     <div class="homepage">
@@ -63,6 +121,14 @@
                                 </h2>
                                 <p><a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a></p>
                             </div>
+
+                            {% if post.id in likes_count %}
+                                <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
+                            {% endif %}
+                            {% if post.id in liked_by_self %}<a href="{% url 'post_detail' post.id %}dislike">Dislike</a>
+                            {% else %}<a href="{% url 'post_detail' post.id %}like">Like</a>
+                            {% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a></article>
+
                             {% if post.author_id in following %}
                                 <a href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a>{% else %}
                                 <a href="{% url 'profile-view' post.author.username %}follow">Follow</a>{% endif %}
@@ -74,5 +140,68 @@
         {% endblock content %}
     </div>
 </div>
+
+<script type="text/javascript">
+    var suggestions = document.getElementById("search_suggestions");
+    var search_txt = document.getElementById("search_txt");
+    var suggestions_cache = {}
+    var hovering = false;
+
+    suggestions.onmouseover = function() {
+        hovering = true;
+    }
+
+    suggestions.onmouseout = function() {
+        hovering = false;
+    }
+
+    function show_suggestions(text, all_suggestions) {
+        if(search_txt.value === text) {
+            suggestions.innerHTML = "";
+            all_suggestions.forEach(val => {
+                const element = document.createElement("div");
+                element.textContent = val;
+                element.addEventListener('click', function() {
+                    search_txt.value = this.textContent;
+                    suggestions.classList.remove("suggestions_active");
+                    search_txt.focus();
+                });
+                suggestions.appendChild(element);
+            });
+            suggestions.classList.add("suggestions_active");
+        }
+    }
+
+    function close_suggestions() {
+        if(!hovering) {
+            suggestions.classList.remove("suggestions_active");
+        }
+    }
+
+    function search_suggest() {
+        console.log("suggest_called")
+        var text = search_txt.value;
+        if(text === "") {
+            return;
+        }
+        if(!(text in suggestions_cache)) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(xhttp.responseText);
+                    if("success" in response) {
+                        var temp_text = response["suggestions_for"];
+                        suggestions_cache[temp_text] = response["suggestions"];
+                        show_suggestions(temp_text, suggestions_cache[temp_text]);
+                    }
+                }
+            };
+            xhttp.open("GET", "suggest/" + encodeURIComponent(text), true);
+            xhttp.send();
+        } else {
+            show_suggestions(text, suggestions_cache[text]);
+        }
+    }
+</script>
 </body>
 </html>
