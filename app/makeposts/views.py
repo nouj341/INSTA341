@@ -73,6 +73,7 @@ def dislike(request, post_id):
         return redirect(previous_url)
 
 
+
 def home(request):
     if request.user and request.user.is_authenticated:
         user = User.objects.get(username=request.user)
@@ -95,7 +96,7 @@ def home(request):
                 liked_by_self.append(post.id)
             except Likes.DoesNotExist:
                 pass
-        
+
         return render(request, 'makeposts/home.html', {
             "posts": posts, "likes_count": likes_count, "liked_by_self": liked_by_self
         })
@@ -109,7 +110,7 @@ def comment(request, post_id):
             user = User.objects.get(username=request.user)
             form = CommentForm(request.POST)
             if form.is_valid():
-                comment = Comments(post_id=post_id, commenter=user.id, comment=form.cleaned_data["comment"],
+                comment = Comments(post_id=pk, commenter=user.id, comment=form.cleaned_data["comment"],
                                    username=request.user)
                 comment.save()
                 return redirect("/post/" + str(post_id))

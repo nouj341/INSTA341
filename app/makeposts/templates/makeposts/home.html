@@ -94,7 +94,7 @@
                 </div>
             </form>
         </div>
-        
+
     </nav>
 
     <div class="homepage">
@@ -121,12 +121,19 @@
                                 </h2>
                                 <p><a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a></p>
                             </div>
+
                             {% if post.id in likes_count %}
                                 <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
                             {% endif %}
                             {% if post.id in liked_by_self %}<a href="{% url 'post_detail' post.id %}dislike">Dislike</a>
                             {% else %}<a href="{% url 'post_detail' post.id %}like">Like</a>
                             {% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a></article>
+
+                            {% if post.author_id in following %}
+                                <a href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a>{% else %}
+                                <a href="{% url 'profile-view' post.author.username %}follow">Follow</a>{% endif %}
+                            &nbsp;&nbsp;&nbsp;<a
+                                href="{% url 'post_detail' post.id %}">Comment</a></article>
                     {% endfor %}
                 {% endblock content1 %}
             </div>
