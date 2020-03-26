@@ -1,11 +1,10 @@
 {% extends 'makeposts/home.html' %}
 {% load get_item %}
 {% block content1 %}
-    {% if user.id in follow %}
+    {% if user in follow %}
         <a href="{% url 'profile-view' user.username %}unfollow">Unfollow</a>{% else %}
                             <a href="{% url 'profile-view' user.username %}follow">Follow</a>
     {% endif %}
-
     {% for post in posts %}
         <article class="media content-section">
         <div class="media-body">

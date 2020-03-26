@@ -24,8 +24,8 @@ def register(request):
 def follow(request, username):
     if request.user and request.user.is_authenticated:
         user = User.objects.get(username=request.user)
-        followed_user_id = User.objects.get(username=username).id
-        following = Following(user_id=followed_user_id, follower=user.id)
+        followed_user = User.objects.get(username=username)
+        following = Following(user_id=followed_user, follower=user)
         following.save()
         return redirect(reverse('profile-view', kwargs={'username':username}))
 
@@ -33,7 +33,7 @@ def follow(request, username):
 def unfollow(request, username):
     if request.user and request.user.is_authenticated:
         user = User.objects.get(username=request.user)
-        followed_user_id = User.objects.get(username=username).id
-        following = Following.objects.get(user_id=followed_user_id, follower=user.id)
+        followed_user = User.objects.get(username=username)
+        following = Following.objects.get(user_id=followed_user, follower=user)
         following.delete()
         return redirect(reverse('profile-view', kwargs={'username':username}))

@@ -64,11 +64,11 @@ def home(request):
         user = User.objects.get(username=request.user)
         posts = Post.objects.order_by('-date_posted')
         try:
-            following = [f.user_id for f in Following.objects.filter(follower=user.id)]
+            following = [f.user_id for f in Following.objects.filter(follower=user)]
         except Following.DoesNotExist:
             following = []
         # user will only see their own posts and posts from the people they are following
-        posts = [post for post in posts  if post.author_id in following or post.author_id == user.id]
+        posts = [post for post in posts if post.author in following or post.author_id == user.id]
         likes_count = {}
         liked_by_self = []
         for post in posts:
@@ -109,9 +109,9 @@ def user_profile_view(request, username):
         self_id = User.objects.get(username=request.user).id
         # user whose profile is to be viewed
         user = User.objects.get(username=username)
-        following = [f.user_id for f in Following.objects.filter(follower=request.user.id)]
+        following = [f.user_id for f in Following.objects.filter(follower=request.user)]
         # get posts written by the user
-        posts = Post.objects.filter(author_id=user.id).order_by('-date_posted')
+        posts = Post.objects.filter(author_id=user).order_by('-date_posted')
         likes_count = {}
         liked_by_self = []
         for post in posts:

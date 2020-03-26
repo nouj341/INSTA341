@@ -87,7 +87,7 @@ class CommentsFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_comment_form_invalid(self):
-        #Empty form
+        # Empty form
         form = CommentForm()
         self.assertFalse(form.is_valid())
 
@@ -118,7 +118,7 @@ class FollowModelTest(TestCase):
     def setUpTestData(cls):
         follower = User.objects.create(username='tester2', password='1234asdasd!')
         followed = User.objects.create(username='tester3', password='1234asdasd!')
-        Following.objects.create(user_id=followed.id, follower=follower.id)
+        Following.objects.create(user_id=followed, follower=follower)
 
     def test_follower_id(self):
         following = Following.objects.last()
@@ -128,7 +128,7 @@ class FollowModelTest(TestCase):
     def test_followed_id(self):
         following = Following.objects.last()
         followed = User.objects.filter(username='tester3').first()
-        self.assertEqual(following.user_id, followed.id)
+        self.assertEqual(following.user_id, followed)
 
     def test_followed_label(self):
         following = Following.objects.last()
@@ -161,7 +161,7 @@ class FollowTestView(TestCase):
         self.assertEqual(post.id, 1)
         user = User.objects.filter(username='Test2').last()
         response = self.client.get(reverse('follow', kwargs={'username': post.author}))
-        self.assertRedirects(response, reverse('profile-view', kwargs={'username':post.author}))
+        self.assertRedirects(response, reverse('profile-view', kwargs={'username': post.author}))
         following = Following.objects.last()
-        self.assertEqual(following.user_id, post.id)
-        self.assertEqual(following.follower, user.id)
+        self.assertEqual(following.user_id, post.author)
+        self.assertEqual(following.follower, user)
