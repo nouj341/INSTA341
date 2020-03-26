@@ -4,8 +4,10 @@ from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from .models import Post, Following, Comments, Likes
+
+from .models import Post, Comments, Likes
 from .forms import CommentForm
+from users.models import Following
 
 
 def search(request):
@@ -37,28 +39,11 @@ def suggest(request, text):
         return JsonResponse({ "suggestions_for": text, "suggestions": suggestions, "success": True })
 
 
-def follow(request, username):
-    if request.user and request.user.is_authenticated:
-        user = User.objects.get(username=request.user)
-        followed_user_id = User.objects.get(username=username).id
-        following = Following(user_id=followed_user_id, follower=user.id)
-        following.save()
-        return redirect(reverse('profile-view', kwargs={'username':username}))
-
-
-def unfollow(request, username):
-    if request.user and request.user.is_authenticated:
-        user = User.objects.get(username=request.user)
-        followed_user_id = User.objects.get(username=username).id
-        following = Following.objects.get(user_id=followed_user_id, follower=user.id)
-        following.delete()
-        return redirect(reverse('profile-view', kwargs={'username':username}))
-
-
 def like(request, post_id):
     if request.user and request.user.is_authenticated:
         user = User.objects.get(username=request.user)
-        likes = Likes(post_id=post_id, liked_by=user.id)
+        post = Post.objects.get(id=post_id)
+        likes = Likes(post_id=post, liked_by=user)
         likes.save()
         previous_url = request.META["HTTP_REFERER"]
         return redirect(previous_url)
@@ -67,7 +52,7 @@ def like(request, post_id):
 def dislike(request, post_id):
     if request.user and request.user.is_authenticated:
         user = User.objects.get(username=request.user)
-        likes = Likes.objects.get(post_id=post_id, liked_by=user.id)
+        likes = Likes.objects.get(post_id=post_id, liked_by=user)
         likes.delete()
         previous_url = request.META["HTTP_REFERER"]
         return redirect(previous_url)
@@ -87,7 +72,7 @@ def home(request):
         likes_count = {}
         liked_by_self = []
         for post in posts:
-            lc = Likes.objects.filter(post_id=post.id).count()
+            lc = Likes.objects.filter(post_id=post).count()
             if lc == 0:
                 continue
             likes_count[post.id] = lc
@@ -98,7 +83,7 @@ def home(request):
                 pass
 
         return render(request, 'makeposts/home.html', {
-            "posts": posts, "likes_count": likes_count, "liked_by_self": liked_by_self
+            "posts": posts, "likes_count": likes_count, "liked_by_self": liked_by_self, "user":user
         })
     else:
         return redirect("/login")
@@ -108,9 +93,10 @@ def comment(request, post_id):
     if request.method == "POST":
         if request.user and request.user.is_authenticated:
             user = User.objects.get(username=request.user)
+            post = Post.objects.get(id=post_id)
             form = CommentForm(request.POST)
             if form.is_valid():
-                comment = Comments(post_id=pk, commenter=user.id, comment=form.cleaned_data["comment"],
+                comment = Comments(post_id=post, commenter=user, comment=form.cleaned_data["comment"],
                                    username=request.user)
                 comment.save()
                 return redirect("/post/" + str(post_id))

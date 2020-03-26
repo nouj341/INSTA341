@@ -17,7 +17,7 @@
             text-align: center;
             z-index: 1;
             background-color: white;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.8);
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
             min-width: 100px;
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
@@ -87,7 +87,9 @@
 
             <form class="form-inline" method="GET" action="search/">
                 <div class="md-form my-0">
-                    <input name="q" id="search_txt" onfocusout="close_suggestions()" oninput="search_suggest()" autocomplete="off" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <input name="q" id="search_txt" onfocusout="close_suggestions()" oninput="search_suggest()"
+                           autocomplete="off" class="form-control mr-sm-2" type="text" placeholder="Search"
+                           aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0 text-light" type="submit">Search</button>
                 </div>
                 <div id="search_suggestions">
@@ -125,15 +127,20 @@
                             {% if post.id in likes_count %}
                                 <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
                             {% endif %}
-                            {% if post.id in liked_by_self %}<a href="{% url 'post_detail' post.id %}dislike">Dislike</a>
+                            {% if post.id in liked_by_self %}
+                                <a href="{% url 'post_detail' post.id %}dislike">Dislike</a>
                             {% else %}<a href="{% url 'post_detail' post.id %}like">Like</a>
-                            {% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a></article>
+                            {% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a>
+                        </article>
 
-                            {% if post.author_id in following %}
+                        {% if post.author_id in following %}
+                            {% if post.author is not user %}
                                 <a href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a>{% else %}
-                                <a href="{% url 'profile-view' post.author.username %}follow">Follow</a>{% endif %}
-                            &nbsp;&nbsp;&nbsp;<a
-                                href="{% url 'post_detail' post.id %}">Comment</a></article>
+                                <a href="{% url 'profile-view' post.author.username %}follow">Follow</a>
+                            {% endif %}
+                        {% endif %}
+                        &nbsp;&nbsp;&nbsp;<a
+                            href="{% url 'post_detail' post.id %}">Comment</a></article>
                     {% endfor %}
                 {% endblock content1 %}
             </div>
@@ -147,21 +154,21 @@
     var suggestions_cache = {}
     var hovering = false;
 
-    suggestions.onmouseover = function() {
+    suggestions.onmouseover = function () {
         hovering = true;
     }
 
-    suggestions.onmouseout = function() {
+    suggestions.onmouseout = function () {
         hovering = false;
     }
 
     function show_suggestions(text, all_suggestions) {
-        if(search_txt.value === text) {
+        if (search_txt.value === text) {
             suggestions.innerHTML = "";
             all_suggestions.forEach(val => {
                 const element = document.createElement("div");
                 element.textContent = val;
-                element.addEventListener('click', function() {
+                element.addEventListener('click', function () {
                     search_txt.value = this.textContent;
                     suggestions.classList.remove("suggestions_active");
                     search_txt.focus();
@@ -173,7 +180,7 @@
     }
 
     function close_suggestions() {
-        if(!hovering) {
+        if (!hovering) {
             suggestions.classList.remove("suggestions_active");
         }
     }
@@ -181,15 +188,15 @@
     function search_suggest() {
         console.log("suggest_called")
         var text = search_txt.value;
-        if(text === "") {
+        if (text === "") {
             return;
         }
-        if(!(text in suggestions_cache)) {
+        if (!(text in suggestions_cache)) {
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(xhttp.responseText);
-                    if("success" in response) {
+                    if ("success" in response) {
                         var temp_text = response["suggestions_for"];
                         suggestions_cache[temp_text] = response["suggestions"];
                         show_suggestions(temp_text, suggestions_cache[temp_text]);

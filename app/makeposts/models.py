@@ -17,18 +17,9 @@ class Post(models.Model):
         return reverse('post_detail', kwargs={'pk': self.pk})
 
 
-class Following(models.Model):
-    user_id = models.IntegerField()
-    follower = models.IntegerField()
-
-    class Meta:
-        db_table = "following"
-        unique_together = (("user_id", "follower"),)
-
-
 class Likes(models.Model):
-    post_id = models.IntegerField()
-    liked_by = models.IntegerField()
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
+    liked_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "likes"
@@ -36,8 +27,8 @@ class Likes(models.Model):
 
 
 class Comments(models.Model):
-    post_id = models.IntegerField()
-    commenter = models.IntegerField()
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE)
     comment_time = models.DateTimeField(default=timezone.now, blank=True)
     comment = models.TextField()
     username = models.CharField(max_length=150)

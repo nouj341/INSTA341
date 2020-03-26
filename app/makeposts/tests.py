@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from makeposts.forms import CommentForm
-from .models import Post, Comments, Following
+from .models import Post, Comments
+from users.models import Following
 
 
 class PostModelTest(TestCase):
@@ -64,16 +65,16 @@ class CommentsModelTest(TestCase):
         cwd = os.path.dirname(__file__)
         file_path = os.path.join(cwd, '../media/test_files/myImage.jpg')
         post = Post.objects.create(author=user, title="TitleForTests", image=File(open(file_path, 'rb')))
-        Comments.objects.create(post_id=post.id, commenter=user.id, comment="Test Comments", username=user)
+        Comments.objects.create(post_id=post, commenter=user, comment="Test Comments", username=user)
 
     def test_post_id(self):
         post = Post.objects.last()
         comment = Comments.objects.last()
-        self.assertEqual(comment.post_id, post.id)
+        self.assertEqual(comment.post_id, post)
 
     def test_author_id(self):
         comment = Comments.objects.last()
-        self.assertEqual(comment.commenter, User.objects.filter(username='tester2').last().id)
+        self.assertEqual(comment.commenter, User.objects.filter(username='tester2').last())
 
     def test_author_username(self):
         comment = Comments.objects.last()
@@ -100,7 +101,7 @@ class CommentsViewTest(TestCase):
         cwd = os.path.dirname(__file__)
         file_path = os.path.join(cwd, '../media/test_files/myImage.jpg')
         post = Post.objects.create(author=user, title="TitleForTests", image=File(open(file_path, 'rb')))
-        Comments.objects.create(post_id=post.id, commenter=user.id, comment="Test Comments", username=user)
+        Comments.objects.create(post_id=post, commenter=user, comment="Test Comments", username=user)
 
     def test_commenting(self):
         self.client.login(username='tester2', password='1234asdasd!')
@@ -108,8 +109,8 @@ class CommentsViewTest(TestCase):
         post = Post.objects.last()
         self.client.post(f"/post/{post.id}/comment/", data={'comment': "Test comment"})
         comment = Comments.objects.last()
-        self.assertEqual(comment.post_id, post.id)
-        self.assertEqual(comment.commenter, user.id)
+        self.assertEqual(comment.post_id, post)
+        self.assertEqual(comment.commenter, user)
 
 
 class FollowModelTest(TestCase):
