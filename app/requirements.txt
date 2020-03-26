@@ -2,3 +2,4 @@ Django
 Pillow
 Django-cleanup
 sqlparse
+django_extensions
