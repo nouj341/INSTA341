@@ -22,6 +22,7 @@ Instagram is a viusal platform allowing users to upload inspirational images, co
 ## Technologies
 * Python
 * Django
+* SQLite
 * HTML/CSS
 * JavaScript
 * Bootstrap
