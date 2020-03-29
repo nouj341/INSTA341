@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/home.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+
 {% extends 'makeposts/home.html' %}
 {% load get_item %}
 {% block content1 %}
@@ -8,13 +20,16 @@
     {% for post in posts %}
         <article class="media content-section">
         <div class="media-body">
+
             <div class="article-metadata">
                 <!-- THIS IS NOT A LINK! PLEASE FIX IT -->
                 <span class="mr-2">{{ post.author | title}}</span>
                 <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
             </div>
-            <h2><a class="article-title">{{ post.title|title }}</a>
+
+ <h2><a class="article-title">{{ post.title|title }}</a>
             </h2>
+
             <p><a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a></p>
             {% if post.id in likes_count %}
                 <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
@@ -26,3 +41,4 @@
         </article>
     {% endfor %}
 {% endblock content1 %}
+</html>

@@ -1,12 +1,82 @@
+.content {
+  margin-top: 50px;
+    position: relative;
+  background: #464646 url(59H-from-gratisography.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.description, .some-related-articles {
+  width: 90%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.description {
+  padding-top: 20px;
+  min-height: 125px;
+  text-align: center;
+}
+
+.summary {
+  color: #d9dee2;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+.button, .button:visited, .button-dark {
+  display: inline-block;
+  max-width: 200px;
+  margin: 50px 10px 30px 10px;
+  padding: 10px;
+  font-family: "Signika", sans-serif;
+  color: black;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 3px;
+  text-transform: capitalize;
+  text-align: center;
+  transition: all 0.1s ease;
+}
+.button-dark, .button-dark:visited {
+  margin: 20px 10px 30px 0;
+  color: #464646;
+  border-color: #464646;
+
+}
+.button:hover, .button-dark:hover {
+  transition: all 0.3s ease;
+}
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.button-dark:hover {
+  color: #ffffff;
+  background-color: rgba(70, 70, 70, 0.9);
+}
+
+
+
+
+
 
 .navbar {
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1rem;
+    font-size:medium;
     letter-spacing: 0.1rem;
-    background: rgba(0, 0, 0, 0.4) !important;
-    font-family: "Brush Script MT",cursive;
+    width: 100%;
+  background-color: black;
+
+
+ /* overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+    background: rgba(0, 0, 0, 0.4) !important; */
+   /* font-family: "Brush Script MT",cursive; */
+    font-family: "Copperplate Gothic Bold";
 }
+
+
 
 .navbar-brand {
     font-size: 3rem;
@@ -26,9 +96,7 @@
     color: #7abaff;
 }
 
-.homepage {
-    padding-top: 1rem;
-}
+
 
 .btn {
     background-color: #2cc3dc;
@@ -48,5 +116,20 @@ img {
 }
 
 .homepage {
+     padding-top: 1rem;
     text-align: center;
+
 }
+
+.authorStyle {
+    font-family: "Britannic Bold";
+}
+
+.box {
+    width:100px;
+	height:100px;
+    border: 50px solid dimgrey;
+}
+
+
+

@@ -9,7 +9,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+
+
     <style>
+
+        .topMargin {
+            margin-top: 600px;
+        }
+
         #search_suggestions {
             position: absolute;
             display: none;
@@ -61,28 +68,33 @@
             color: white;
             font-size: 12px;
         }
+
     </style>
 </head>
 <div>
     {% load get_item %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-        <a class="navbar-brand" href="{% url 'insta-home' %}">INSTAGRAM</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar">
+           <a class="navbar-brand" href="{% url 'insta-home' %}">INSTAGRAM</a>
 
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'post-create' %}">Post</a>
-                </li>
 
-            </ul>
+           <!--<button class="navbar-toggler" type="button" data-toggle="collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>-->
+
+            <div class="collapse navbar-collapse" id="navbar">
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+
+                    </li>
+                   <li class="nav-item">
+                        <a class="nav-link" href="{% url 'post-create' %}">Post</a>
+
+                    </li>
+                </ul>
 
 
             <form class="form-inline" method="GET" action="search/">
@@ -95,9 +107,17 @@
                 <div id="search_suggestions">
                 </div>
             </form>
-        </div>
+   </nav>
 
-    </nav>
+
+
+
+
+
+
+
+
+
 
     <div class="homepage">
         {% block content %}
@@ -110,27 +130,55 @@
                     {% endfor %}
 
                 {% endif %}
+
                 {% block content1 %}
                     {% for post in posts %}
                         <article class="media content-section">
+                            <!--<table border="1"> -->
                             <div class="media-body">
+                               <!-- <tr> <td style="background-image: url(cell.jpeg)">
                                 <div class="article-metadata">
-                                    <a class="mr-2"
-                                       href='{% url 'profile-view' post.author.username %}'>{{ post.author | title }}</a>
-                                    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                                    <div class="authorStyle">
+                                        <a class="mr-2"
+                                           href='{% url 'profile-view' post.author.username %}'>{{ post.author | title }}</a>
+                                    </div>
+                                    <p class="summary">{{ post.date_posted|date:"F d, Y" }}</p>
                                 </div>
+                                </td></tr> -->
+
+                                <section class="content">
+                                    <div class="description">
+                                        <div class="article-metadata">
+                                            <div class="authorStyle">
+                                                 <a class="mr-2" style="font-size: 60px; line-height: 46px; color: white;"
+                                                    href='{% url 'profile-view' post.author.username %}'>{{ post.author | title }}</a>
+                                             </div>
+                                            <p class="summary">{{ post.date_posted|date:"F d, Y" }}</p>
+                                         </div>
+                                    </div>
+                                </section>
+                                <a class="button" href="{% url 'post_detail' post.id %}">Comment</a>
+                                        <a class="button" href="{% url 'post_detail' post.id %}like">Like</a>
+                                <!-- <tr> <td> -->
                                 <h2><a class="article-title">{{ post.title|title }}</a>
                                 </h2>
+                                <!-- </td> </tr>
+<tr><td> -->
                                 <p><a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a></p>
+<!--</td></tr>-->
                             </div>
+                        <!-- </table> -->
 
-                            {% if post.id in likes_count %}
-                                <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
-                            {% endif %}
-                            {% if post.id in liked_by_self %}
-                                <a href="{% url 'post_detail' post.id %}dislike">Dislike</a>
-                            {% else %}<a href="{% url 'post_detail' post.id %}like">Like</a>
-                            {% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a>
+                            <div class="topMargin">
+                                {% if post.id in likes_count %}
+                                    <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
+                                {% endif %}
+
+                                {% if post.id in liked_by_self %}
+                                    <a href="{% url 'post_detail' post.id %}dislike">Dislike</a>
+                                    {% else %}<a href="{% url 'post_detail' post.id %}like">Like</a>
+                                {% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a>
+                            </div>
                         </article>
 
                         {% if post.author_id in following %}
