@@ -12,11 +12,6 @@
 
 
     <style>
-
-        .topMargin {
-            margin-top: 600px;
-        }
-
         #search_suggestions {
             position: absolute;
             display: none;
@@ -67,55 +62,47 @@
             font-weight: bold;
             color: white;
             font-size: 12px;
+            position:relative; top: -55px;
         }
 
     </style>
 </head>
-<div>
-    {% load get_item %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
+<body>
+    <div>
+        {% load get_item %}
 
-           <a class="navbar-brand" href="{% url 'insta-home' %}">INSTAGRAM</a>
-
-
-           <!--<button class="navbar-toggler" type="button" data-toggle="collapse">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position:fixed; z-index: 1; height: 80px">
+            <a  style="font-family:Brush Script MT,cursive; text-transform: none; font-size: 60px" class="navbar-brand" href="{% url 'insta-home' %}">Instagram</a>
+            <!--<button class="navbar-toggler" type="button" data-toggle="collapse">
                 <span class="navbar-toggler-icon"></span>
             </button>-->
+            
+            <div class="collapse navbar-collapse" class="navbar">
+                <form class="form-inline" method="GET" action="search/">
+                    <div class="md-form my-0" style="position:relative; left: 240px">
+                        <input name="q" id="search_txt" onfocusout="close_suggestions()" oninput="search_suggest()"
+                               autocomplete="off" class="form-control mr-sm-2" type="text" placeholder="Search"
+                               aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0 text-light" type="submit">Search</button>
+                    </div>
+                    <div id="search_suggestions"></div>
+                </form>
 
-            <div class="collapse navbar-collapse" id="navbar">
 
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                     <li class="nav-item">
+                         <div style="position: relative; left: 400px" href="{% url 'post-create' %}"><a class="nav-link">Post</a> </div>
 
                     </li>
-                   <li class="nav-item">
-                        <a class="nav-link" href="{% url 'post-create' %}">Post</a>
+
+                        <a class="nav-link" style="position: relative; left: 490px" href="{% url 'logout' %}">Logout</a>
 
                     </li>
                 </ul>
-
-
-            <form class="form-inline" method="GET" action="search/">
-                <div class="md-form my-0">
-                    <input name="q" id="search_txt" onfocusout="close_suggestions()" oninput="search_suggest()"
-                           autocomplete="off" class="form-control mr-sm-2" type="text" placeholder="Search"
-                           aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0 text-light" type="submit">Search</button>
-                </div>
-                <div id="search_suggestions">
-                </div>
-            </form>
-   </nav>
-
-
-
-
-
-
-
-
+            </div>
+        </nav>
+    </div>
 
 
 
@@ -128,135 +115,140 @@
                             {{ message }}
                         </div>
                     {% endfor %}
-
                 {% endif %}
+
 
                 {% block content1 %}
                     {% for post in posts %}
                         <article class="media content-section">
-                            <!--<table border="1"> -->
                             <div class="media-body">
-                               <!-- <tr> <td style="background-image: url(cell.jpeg)">
-                                <div class="article-metadata">
-                                    <div class="authorStyle">
-                                        <a class="mr-2"
-                                           href='{% url 'profile-view' post.author.username %}'>{{ post.author | title }}</a>
-                                    </div>
-                                    <p class="summary">{{ post.date_posted|date:"F d, Y" }}</p>
-                                </div>
-                                </td></tr> -->
-
-                                <section class="content">
+                                <section class="content" style="position: relative; top: 100px;">
                                     <div class="description">
                                         <div class="article-metadata">
                                             <div class="authorStyle">
-                                                 <a class="mr-2" style="font-size: 60px; line-height: 46px; color: white;"
+                                                 <a class="mr-2" style="font-size: 60px; line-height: 46px; color: white; position: relative; left: 50px"
                                                     href='{% url 'profile-view' post.author.username %}'>{{ post.author | title }}</a>
-                                             </div>
-                                            <p class="summary">{{ post.date_posted|date:"F d, Y" }}</p>
-                                         </div>
+                                            </div>
+    
+                                                {% if post.author_id in following %}
+                                                    {% if post.author is not user %}
+                                                        <a class="button"  href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a> {% else %}
+                                                        <a class="button" style="text-decoration:none; font-size: small; position: relative; left: 450px; top: -50px" href="{% url 'profile-view' post.author.username %}follow">Follow</a>
+                                                    {% endif %}
+                                                {% endif %}
+
+
+                                            <p class="subtitle fancy"><span>{{ post.date_posted|date:"F d, Y" }}</span></p>
+                                        </div>
                                     </div>
                                 </section>
-                                <a class="button" href="{% url 'post_detail' post.id %}">Comment</a>
-                                        <a class="button" href="{% url 'post_detail' post.id %}like">Like</a>
-                                <!-- <tr> <td> -->
-                                <h2><a class="article-title">{{ post.title|title }}</a>
-                                </h2>
-                                <!-- </td> </tr>
-<tr><td> -->
-                                <p><a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a></p>
-<!--</td></tr>-->
-                            </div>
-                        <!-- </table> -->
 
-                            <div class="topMargin">
-                                {% if post.id in likes_count %}
-                                    <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
+                                <div class="gallery" style="position: relative; top: 100px;">
+                                    <a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a>
+                                </div>
+                                <div class = "desc">
+                                    <span style="position: relative; top: 125px">
+                                        <img width="50" height="50" src="../static/Capture.png">
+                                        <a class = "article-title">{{ post.title|title }}</a>
+                                    </span>
+                                </div> <br/>
+
+
+                                <section class="content" style="position: relative; top: 100px; height: 80px">
+                                    <div class="description">
+
+                                            {% if post.id in likes_count %}
+                                                 <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
+                                            {% endif %}
+
+                                             {% if post.id in liked_by_self %}
+                                                <a class="button" style="position:relative; top: -55px;text-decoration:none; font-size: medium" href="{% url 'post_detail' post.id %}dislike">Dislike</a>
+                                            {% else %} <a class="button" style="position:relative; top: -55px; text-decoration:none; font-size: medium" href="{% url 'post_detail' post.id %}like">Like</a>
+                                            {% endif %} &nbsp;&nbsp;&nbsp;<a class="button" style="position:relative; top: -55px; text-decoration:none; font-size: medium" href="{% url 'post_detail' post.id %}">Comment</a>
+                                    </div>
+                                </section>
+                            </div>
+
+
+
+
+
+                          <!--  {% if post.author_id in following %}
+                                 {% if post.author is not user %}
+                                    <a href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a>{% else %}
+                                    <a href="{% url 'profile-view' post.author.username %}follow">Follow</a>
                                 {% endif %}
-
-                                {% if post.id in liked_by_self %}
-                                    <a href="{% url 'post_detail' post.id %}dislike">Dislike</a>
-                                    {% else %}<a href="{% url 'post_detail' post.id %}like">Like</a>
-                                {% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a>
-                            </div>
+                            {% endif %} -->
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><br/><br/>
                         </article>
-
-                        {% if post.author_id in following %}
-                            {% if post.author is not user %}
-                                <a href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a>{% else %}
-                                <a href="{% url 'profile-view' post.author.username %}follow">Follow</a>
-                            {% endif %}
-                        {% endif %}
-                        &nbsp;&nbsp;&nbsp;<a
-                            href="{% url 'post_detail' post.id %}">Comment</a></article>
                     {% endfor %}
                 {% endblock content1 %}
             </div>
         {% endblock content %}
     </div>
-</div>
 
-<script type="text/javascript">
-    var suggestions = document.getElementById("search_suggestions");
-    var search_txt = document.getElementById("search_txt");
-    var suggestions_cache = {}
-    var hovering = false;
 
-    suggestions.onmouseover = function () {
-        hovering = true;
-    }
+    <script type="text/javascript">
+        var suggestions = document.getElementById("search_suggestions");
+        var search_txt = document.getElementById("search_txt");
+        var suggestions_cache = {}
+        var hovering = false;
 
-    suggestions.onmouseout = function () {
-        hovering = false;
-    }
+        suggestions.onmouseover = function () {
+            hovering = true;
+        }
 
-    function show_suggestions(text, all_suggestions) {
-        if (search_txt.value === text) {
-            suggestions.innerHTML = "";
-            all_suggestions.forEach(val => {
-                const element = document.createElement("div");
-                element.textContent = val;
-                element.addEventListener('click', function () {
-                    search_txt.value = this.textContent;
-                    suggestions.classList.remove("suggestions_active");
-                    search_txt.focus();
+        suggestions.onmouseout = function () {
+            hovering = false;
+        }
+
+        function show_suggestions(text, all_suggestions) {
+            if (search_txt.value === text) {
+                suggestions.innerHTML = "";
+                all_suggestions.forEach(val => {
+                    const element = document.createElement("div");
+                    element.textContent = val;
+                    element.addEventListener('click', function () {
+                        search_txt.value = this.textContent;
+                        suggestions.classList.remove("suggestions_active");
+                        search_txt.focus();
+                    });
+                    suggestions.appendChild(element);
                 });
-                suggestions.appendChild(element);
-            });
-            suggestions.classList.add("suggestions_active");
+                suggestions.classList.add("suggestions_active");
+            }
         }
-    }
 
-    function close_suggestions() {
-        if (!hovering) {
-            suggestions.classList.remove("suggestions_active");
+        function close_suggestions() {
+            if (!hovering) {
+                suggestions.classList.remove("suggestions_active");
+            }
         }
-    }
 
-    function search_suggest() {
-        console.log("suggest_called")
-        var text = search_txt.value;
-        if (text === "") {
-            return;
-        }
-        if (!(text in suggestions_cache)) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var response = JSON.parse(xhttp.responseText);
-                    if ("success" in response) {
-                        var temp_text = response["suggestions_for"];
-                        suggestions_cache[temp_text] = response["suggestions"];
-                        show_suggestions(temp_text, suggestions_cache[temp_text]);
+        function search_suggest() {
+            console.log("suggest_called")
+            var text = search_txt.value;
+            if (text === "") {
+                return;
+            }
+            if (!(text in suggestions_cache)) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var response = JSON.parse(xhttp.responseText);
+                        if ("success" in response) {
+                            var temp_text = response["suggestions_for"];
+                            suggestions_cache[temp_text] = response["suggestions"];
+                            show_suggestions(temp_text, suggestions_cache[temp_text]);
+                        }
                     }
-                }
-            };
-            xhttp.open("GET", "suggest/" + encodeURIComponent(text), true);
-            xhttp.send();
-        } else {
-            show_suggestions(text, suggestions_cache[text]);
+                };
+                xhttp.open("GET", "suggest/" + encodeURIComponent(text), true);
+                xhttp.send();
+            } else {
+                show_suggestions(text, suggestions_cache[text]);
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>

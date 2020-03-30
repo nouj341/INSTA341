@@ -1,6 +1,6 @@
 .content {
-  margin-top: 50px;
-    position: relative;
+  margin-top: 20px;
+
   background: #464646 url(59H-from-gratisography.jpg) no-repeat center center fixed;
   background-size: cover;
 }
@@ -14,28 +14,59 @@
   padding-top: 20px;
   min-height: 125px;
   text-align: center;
+
 }
 
-.summary {
-  color: #d9dee2;
-  margin-top: 40px;
-  margin-bottom: 60px;
+
+.subtitle {
+  margin-top: 20px;
+    color: #d9dee2;
+     margin-bottom: 30px;
+}
+.fancy {
+  line-height: 0.5;
+  text-align: center;
+}
+.fancy span {
+  display: inline-block;
+  position: relative;
+}
+.fancy span:before,
+.fancy span:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  top: 0;
+  width: 600px;
+}
+.fancy span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+.fancy span:after {
+  left: 100%;
+  margin-left: 15px;
 }
 
 .button, .button:visited, .button-dark {
-  display: inline-block;
-  max-width: 200px;
-  margin: 50px 10px 30px 10px;
-  padding: 10px;
-  font-family: "Signika", sans-serif;
-  color: black;
-  background-color: transparent;
-  border: 2px solid #ffffff;
-  border-radius: 3px;
-  text-transform: capitalize;
-  text-align: center;
-  transition: all 0.1s ease;
+    display: inline-block;
+    max-width: 200px;
+    margin: 50px 10px 30px 10px;
+    padding: 10px;
+    text-transform: capitalize;
+    color: #ffffff;
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 3px;
+    text-transform: capitalize;
+    text-align: center;
+    transition: all 0.1s ease;
+    font-size: larger;
+    font-family: "Copperplate Gothic Bold";
 }
+
 .button-dark, .button-dark:visited {
   margin: 20px 10px 30px 0;
   color: #464646;
@@ -47,6 +78,7 @@
 }
 .button:hover {
   background-color: rgba(255, 255, 255, 0.2);
+
 }
 .button-dark:hover {
   color: #ffffff;
@@ -65,6 +97,7 @@
     letter-spacing: 0.1rem;
     width: 100%;
   background-color: black;
+font-family: "Copperplate Gothic Bold";
 
 
  /* overflow: hidden;
@@ -73,13 +106,13 @@
   width: 100%;
     background: rgba(0, 0, 0, 0.4) !important; */
    /* font-family: "Brush Script MT",cursive; */
-    font-family: "Copperplate Gothic Bold";
+
 }
 
 
 
 .navbar-brand {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 .navbar-nav li {
@@ -106,8 +139,9 @@
 
 .btn:hover {
     background-color: white;
-    color: #2cc3dc;
-    border-color: white;
+
+    border-color: black;
+    color: black;
 }
 
 img {
@@ -116,7 +150,7 @@ img {
 }
 
 .homepage {
-     padding-top: 1rem;
+    padding-top: 1rem;
     text-align: center;
 
 }
@@ -132,4 +166,31 @@ img {
 }
 
 
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 180px;
 
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+    min-height: 20px;
+    text-decoration: none;
+    color: #343a40;
+    font-family: Pristina;
+    font-size: 80px;
+    font-weight: normal;
+    line-height: 48px;
+    text-align: left;
+    text-shadow: 1px 1px 2px #082b34;
+}

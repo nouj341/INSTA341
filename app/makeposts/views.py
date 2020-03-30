@@ -83,7 +83,7 @@ def home(request):
                 pass
 
         return render(request, 'makeposts/home.html', {
-            "posts": posts, "likes_count": likes_count, "liked_by_self": liked_by_self, "user":user
+            "posts": posts, "likes_count": likes_count, "liked_by_self": liked_by_self, "user":user, "following":following
         })
     else:
         return redirect("/login")
