@@ -10,7 +10,7 @@ from .forms import CommentForm
 from users.models import Following
 
 
-def search(request):
+def search(request, username=''):
     if request.user and request.user.is_authenticated:
         print(request.GET)
         if "q" in request.GET:
@@ -30,6 +30,16 @@ def search(request):
 def suggest(request, text):
     if request.user and request.user.is_authenticated:
         sugestions = None
+        searched_usernames = [user.username  for user in User.objects.filter(username__icontains = text)[:5]]
+        if len(searched_usernames) == 0:
+            searched_emails = [user.email  for user in User.objects.filter(email__icontains = text)[:5]]
+            suggestions = searched_emails
+        else:
+            suggestions = searched_usernames
+        return JsonResponse({ "suggestions_for": text, "suggestions": suggestions, "success": True })
+
+def suggest_prof(request, username, text):
+    if request.user and request.user.is_authenticated:
         searched_usernames = [user.username  for user in User.objects.filter(username__icontains = text)[:5]]
         if len(searched_usernames) == 0:
             searched_emails = [user.email  for user in User.objects.filter(email__icontains = text)[:5]]
@@ -107,6 +117,7 @@ def comment(request, post_id):
 def user_profile_view(request, username):
     if request.user and request.user.is_authenticated:
         self_id = User.objects.get(username=request.user).id
+        visitor = request.user
         # user whose profile is to be viewed
         user = User.objects.get(username=username)
         following = [f.user_id for f in Following.objects.filter(follower=request.user)]
@@ -125,7 +136,7 @@ def user_profile_view(request, username):
             except Likes.DoesNotExist:
                 pass
         return render(request, 'makeposts/profile_view.html', {
-                "posts": posts, 'user': user, 'follow':following,
+                "posts": posts, 'user': user, 'follow':following, "visitor":visitor,
                 "liked_by_self": liked_by_self, "likes_count": likes_count
             })
     else:

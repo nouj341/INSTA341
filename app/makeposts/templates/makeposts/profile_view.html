@@ -1,70 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> Profile </title>
-    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/home.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{% extends 'makeposts/home.html' %}
 
-
-</head>
-
-
-
-
-<body>
-    <div>
-        {% load get_item %}
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position:fixed; z-index: 1; height: 80px">
-            <a  style="font-family:Brush Script MT,cursive; text-transform: none; font-size: 60px" class="navbar-brand" href="{% url 'insta-home' %}">Instagram</a>
-            <!--<button class="navbar-toggler" type="button" data-toggle="collapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>-->
-
-            <div class="collapse navbar-collapse" class="navbar">
-
-
-                <ul class="navbar-nav mr-auto">
-                    <li>
-                        <a class="nav-link" style="position: relative; left: 490px" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-
+{% load get_item %}
 {% block content1 %}
-    {% if user in follow %}
-        <a href="{% url 'profile-view' user.username %}unfollow">Unfollow</a>{% else %}
-                            <a href="{% url 'profile-view' user.username %}follow">Follow</a>
+    {% if user != visitor %}
+        {% if user in follow %}
+            <a href="{% url 'profile-view' user.username %}unfollow">Unfollow</a>{% else %}
+            <a href="{% url 'profile-view' user.username %}follow">Follow</a>
+        {% endif %}
     {% endif %}
     {% for post in posts %}
         <article class="media content-section">
-        <div class="media-body">
+            <div class="media-body">
 
-            <div class="article-metadata">
-                <!-- THIS IS NOT A LINK! PLEASE FIX IT -->
-                <span class="mr-2">{{ post.author | title}}</span>
-                <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                <div class="article-metadata">
+                    <!-- THIS IS NOT A LINK! PLEASE FIX IT -->
+                    <span class="mr-2">{{ post.author | title }}</span>
+                    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                </div>
+
+                <h2><a class="article-title">{{ post.title|title }}</a>
+                </h2>
+
+                <p><a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a></p>
+                {% if post.id in likes_count %}
+                    <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
+                {% endif %}
+                {% if post.id in liked_by_self %}<a href="{% url 'post_detail' post.id %}dislike">Dislike</a>
+                {% else %}<a href="{% url 'post_detail' post.id %}like">Like</a>
+                {% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a>
             </div>
-
- <h2><a class="article-title">{{ post.title|title }}</a>
-            </h2>
-
-            <p><a href="{% url 'post_detail' post.id %}"><img src="{{ post.image.url }}"></a></p>
-            {% if post.id in likes_count %}
-                <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
-            {% endif %}
-            {% if post.id in liked_by_self %}<a href="{% url 'post_detail' post.id %}dislike">Dislike</a>
-            {% else %}<a href="{% url 'post_detail' post.id %}like">Like</a>
-            {% endif %} &nbsp;&nbsp;&nbsp;<a href="{% url 'post_detail' post.id %}">Comment</a>
-        </div>
         </article>
     {% endfor %}
 {% endblock content1 %}
-</body>
-</html>
+
