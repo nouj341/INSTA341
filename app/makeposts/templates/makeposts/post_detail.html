@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Comment</title>
     <style>
         body {
             background-color: gray;
@@ -124,23 +124,7 @@
 </head>
 <body>
 <article class="media content-section main-content">
-    <div class="title"><a href="{{ back_link }}" id="back_button">&lt; &nbsp;Back</a>{{ object.title }}</div>
-    <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="#">{{ object.author }}</a>
-            <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
-        </div>
-        <p class="article-content">{{ object.content }}</p>
-        <img class="img" src="{{ object.image.url }}">
-    </div>
-    <button class="follow">
-        {% if object.author_id in following %}
-            {% if object.author is not user %}
-                <a href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a>{% else %}
-                <a href="{% url 'profile-view' post.author.username %}follow">Follow</a>
-            {% endif %}
-        {% endif %}
-    </button>
+
     <div class="comments">
         {% for comment in comments %}
             <div class="comment">

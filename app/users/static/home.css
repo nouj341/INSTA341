@@ -1,7 +1,12 @@
 .content {
   margin-top: 20px;
-
   background: #464646 url(59H-from-gratisography.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.content1 {
+  margin-top: 20px;
+  background-image: url(profile_background.jpg);
   background-size: cover;
 }
 
@@ -14,9 +19,7 @@
   padding-top: 20px;
   min-height: 125px;
   text-align: center;
-
 }
-
 
 .subtitle {
   margin-top: 20px;
@@ -54,7 +57,7 @@
     display: inline-block;
     max-width: 200px;
     margin: 50px 10px 30px 10px;
-    padding: 10px;
+    padding: 5px;
     text-transform: capitalize;
     color: #ffffff;
     background-color: transparent;
@@ -168,14 +171,15 @@ img {
 
 div.gallery {
   margin: 5px;
-  border: 1px solid #ccc;
+
   float: left;
   width: 180px;
 
 }
 
 div.gallery:hover {
-  border: 1px solid #777;
+
+    /*border: 1px solid #ccc;*/
 }
 
 div.gallery {
@@ -194,3 +198,8 @@ div.desc {
     text-align: left;
     text-shadow: 1px 1px 2px #082b34;
 }
+
+
+
+
+
