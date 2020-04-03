@@ -84,51 +84,7 @@
 
 
 
-        .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
 
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-
-        .popupCloseButton {
-    background-color: #fff;
-    border: 3px solid #999;
-    border-radius: 50px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: arial;
-    font-weight: bold;
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    font-size: 25px;
-    line-height: 30px;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-}
-
-.popupCloseButton:hover {
-    background-color: #ccc;
-}
 
  .comments {
             margin: 20px;
@@ -197,32 +153,7 @@
 
                 <ul class="navbar-nav mr-auto">
                      <li class="nav-item">
-
-                         <button class="nav-link" id="postBtn" style="position: fixed; left: 1000px; top: 15px" >Post</button>
-
-
-                         <!-- The Modal -->
-                        <div id="postModal" class="modal">
-
-
-                            <div class="modal-content">
-                                <span class="popupCloseButton">&times;</span>
-                                <div class="content-section" style="margin-top: 30px">
-                                    <form method="POST" enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        <fieldset class="form-group">
-                                            <legend class="border-bottom mb-4">Insta Post</legend>
-                                            {{ form.as_p }}
-                                        </fieldset>
-                                        <div class="form-group">
-                                            <button class="btn btn-outline-info" type="submit">Post</button>
-                                        </div>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div> -->
-
+                         <a class="nav-link" id="postBtn" style="position: fixed; left: 1000px; top: 15px" href="{% url 'post-create' %}">Post</a>
                     </li>
                     <li>
                         <a class="nav-link" style="position: fixed; left: 1150px; top: 15px" href="{% url 'logout' %}">Logout</a>
@@ -257,20 +188,16 @@
                                                 <a class="mr-2" style="font-family:Brush Script MT,cursive; font-size: 70px; line-height: 46px; color: white; position: relative; left: 10px"
                                                     href='{% url 'profile-view' post.author.username %}'>{{ post.author | title }}</a>
 
-
-                                                <!-- <a class="button" style="text-decoration:none; font-size: small;" href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a> -->
-                                                {% if post.author_id in following %}
-                                                    <div style = "text-decoration:none; font-size: small; position: relative; left: 550px; margin-top: -110px; top: 15px">
-                                                    {% if post.author is not user %}
-                                                       <a class="button" href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a> {% else %}
-                                                        <a class="button" href="{% url 'profile-view' post.author.username %}follow">Follow</a>
+                                                    <!-- <a class="button" style="text-decoration:none; font-size: small;" href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a> -->
+                                                    {% if post.author_id in following %}
+                                                        <div style = "text-decoration:none; font-size: small; position: relative; left: 550px; margin-top: -110px; top: 15px">
+                                                            {% if post.author is not user %}
+                                                               <a class="button" href="{% url 'profile-view' post.author.username %}unfollow">Unfollow</a> {% else %}
+                                                                <a class="button" href="{% url 'profile-view' post.author.username %}follow">Follow</a>
+                                                            {% endif %}
+                                                         </div>
                                                     {% endif %}
-                                                     </div>
-                                                {% endif %}
-
-
                                             </div>
-
 
                                             <p class="subtitle fancy"><span>{{ post.date_posted|date:"F d, Y" }}</span></p>
                                             <div style="position: relative; top: -20px; font-family: Copperplate Gothic Bold; font-size: 28px; font-weight: lighter; color: white"> <a class = "article-title">{{ post.title|title }}</a></div>
@@ -282,63 +209,19 @@
 
 
                                         {% if post.id in likes_count %}
-                                            <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
+                                                <div class="likes_count">{{ likes_count | get_item:post.id }} likes</div>
                                         {% endif %}
-                                        <div style = "position:relative; top: -45px; text-decoration:none; font-size: medium">
-                                             {% if post.id in liked_by_self %}
-                                                <a class="button" href="{% url 'post_detail' post.id %}dislike">Dislike</a>
-                                            {% else %} <a class="button" href="{% url 'post_detail' post.id %}like">Like</a>
+
+                                        <div style = "position:relative; top: -45px">
+                                            {% if post.id in liked_by_self %}
+                                                <a class="button" style="text-decoration:none; font-size: medium" href="{% url 'post_detail' post.id %}dislike">Dislike</a>
+                                            {% else %} <a class="button" style="text-decoration:none; font-size: medium" href="{% url 'post_detail' post.id %}like">Like</a>
                                             {% endif %}
-                                            &nbsp;&nbsp;&nbsp;<!-- <a class="button" href="{% url 'post_detail' post.id %}">Comment</a> -->
-
-                                            <a class="button" id="myBtn">Comment</a>
-
-                                             <div id="myModal" class="modal">
-                                                <!-- Modal content -->
-                                                <div class="modal-content">
-                                                    <span class="popupCloseButton">&times;</span>
-                                                    <article class="media content-section main-content">
-                                                        <div class="media-body">
-                                                           <!-- <div class="article-metadata">
-                                                                 <div class="authorStyle">
-                                                                    <a class="mr-2" style="font-family:Brush Script MT,cursive; font-size: 70px; line-height: 46px; color: black; position: relative; left: 10px"
-                                                                        href='{% url 'profile-view' post.author.username %}'>{{ object.author }}</a>
-                                                                </div>
-
-
-                                                                <p class="subtitle fancy" style="color: black"><span>{{ post.date_posted|date:"F d, Y" }}</span></p>
-                                                                <div style="position: relative; top: -20px; font-family: Copperplate Gothic Bold; font-size: 28px; font-weight: lighter; color: black"> <a class = "article-title">{{ post.title|title }}</a></div>
-                                                            </div> -->
-
-                                                            <div class="comments">
-                                                                {% for comment in comments %}
-                                                                    <div class="comment">
-                                                                        <div class="content">{{ comment.comment }}</div>
-                                                                        <br>
-                                                                        <div class="comment_time"><a href="#" class="usr">{{ comment.username }}</a>{{ comment.comment_time }}
-                                                                        </div>
-                                                                    </div>
-                                                                {% endfor %}
-                                                            </div>
-
-                                                            <form method="POST" action="/post/{{ object.id }}/comment" class="comment_form">
-                                                                {% csrf_token %}
-                                                                <textarea name="comment" placeholder="comment"></textarea>
-                                                                <br>
-                                                                <button>Comment</button>
-                                                            </form>
-
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                            </div>
+                                            &nbsp;&nbsp;&nbsp <a class="button" style="text-decoration:none; font-size: medium" href="{% url 'post_detail' post.id %}">Comment</a>
                                         </div>
                                     </div>
-
                                 </section>
                             </div>
-
-
                         </article>
                         <div style = "height: 140px; width: auto; background: white"></div>
                     {% endfor %}
@@ -412,65 +295,6 @@
                 show_suggestions(text, suggestions_cache[text]);
             }
         }
-
-
-
-
-        var modalP = document.getElementById("postModal");
-
-    // Get the button that opens the modal
-    var btnP = document.getElementById("postBtn");
-
-// Get the <span> element that closes the modal
-var spanP = document.getElementsByClassName("popupCloseButton")[0];
-
-
-// When the user clicks the button, open the modal
-btnP.onclick = function() {
-  modalP.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-spanP.onclick = function() {
-  modalP.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-
-
-
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("popupCloseButton")[1];
-
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-  else if (event.target == modalP) {
-      modalP.style.display = "none";
-  }
-}
-
-
-
-
     </script>
 </body>
 </html>

@@ -109,6 +109,24 @@
             outline: none;
         }
 
+
+        a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+
         @media only screen and (max-width: 768px) {
             .main-content {
                 width: 100%;
@@ -123,25 +141,35 @@
     </style>
 </head>
 <body>
-<article class="media content-section main-content">
+ <article class="media content-section main-content">
+          <div class="previous"><a href="{{ back_link }}" id="back_button">&lt; &nbsp;Back</a>{{ object.title }}</div>
 
-    <div class="comments">
-        {% for comment in comments %}
-            <div class="comment">
+
+     <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ object.author }}</a>
+              <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <p class="article-content">{{ object.content }}</p>
+              <img class="img" src="{{ object.image.url }}">
+          </div>
+          <button class="follow">{% if object.author_id in following %}<a href="{% url 'post_detail' object.id %}unfollow">Unfollow</a>{% else %}<a href="{% url 'post_detail' object.id %}follow">Follow</a>{% endif %}</button>
+          <div class="comments">
+            {% for comment in comments %}
+              <div class="comment">
                 <div class="content">{{ comment.comment }}</div>
                 <br>
-                <div class="comment_time"><a href="#" class="usr">{{ comment.username }}</a>{{ comment.comment_time }}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    <form method="POST" action="/post/{{ object.id }}/comment" class="comment_form">
-        {% csrf_token %}
-        <textarea name="comment" placeholder="comment"></textarea>
-        <br>
-        <button>Comment</button>
-    </form>
-    <br>
-</article>
+                <div class="comment_time"><a href="#" class="usr">{{ comment.username }}</a>{{ comment.comment_time }}</div>
+              </div>
+            {% endfor %}
+          </div>
+          <form method="POST" action="/post/{{ object.id }}/comment" class="comment_form">
+            {% csrf_token %}
+            <textarea name="comment" placeholder="comment"></textarea>
+            <br>
+            <button>Comment</button>
+          </form>
+          <br>
+    </article>
 </body>
 </html>
