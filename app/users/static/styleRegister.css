@@ -1,5 +1,5 @@
 body {
-    background: url(register.JPG);
+    background: url(59H-from-gratisography.JPG);
     font-family: sans-serif;
     color: white;
     overflow-x: hidden;
@@ -17,4 +17,17 @@ body {
     box-sizing: border-box;
     padding: 70px 30px;
     opacity: 0.8;
+}
+
+legend{
+    font-family: "Copperplate Gothic Bold";
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1.9rem;
+    letter-spacing: .1rem;
+    text-shadow: .1rem .1rem .1rem black;
+    padding-top: 2rem;
+    color: white;
 }
