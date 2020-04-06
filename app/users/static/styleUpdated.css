@@ -9,7 +9,7 @@ body {
 }
 
 h1{
-    font-family: 'Britannic Bold';
+    font-family: Brush Script MT, cursive;
     text-align: center;
     font-size: 4rem;
     font-weight: 700;
@@ -126,6 +126,7 @@ h2{
     padding: .3rem 1.3rem;
     background-color: #4b515d;
     border-color: #4b515d;
+    font-family: "Copperplate Gothic Bold";
 }
 
 .fa {
