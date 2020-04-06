@@ -44,6 +44,7 @@
   top: 0;
   width: 600px;
 }
+
 .fancy span:before {
   right: 100%;
   margin-right: 15px;
@@ -88,19 +89,14 @@
   background-color: rgba(70, 70, 70, 0.9);
 }
 
-
-
-
-
-
 .navbar {
     text-transform: uppercase;
     font-weight: 700;
     font-size:medium;
     letter-spacing: 0.1rem;
     width: 100%;
-  background-color: black;
-font-family: "Copperplate Gothic Bold";
+    background-color: black;
+    font-family: "Copperplate Gothic Bold";
 
 
  /* overflow: hidden;
@@ -111,8 +107,6 @@ font-family: "Copperplate Gothic Bold";
    /* font-family: "Brush Script MT",cursive; */
 
 }
-
-
 
 .navbar-brand {
     font-size: 2rem;
@@ -129,13 +123,12 @@ font-family: "Copperplate Gothic Bold";
 
 .navbar-dark .navbar-nav .navbar-link.active,
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: #7abaff;
+    color: grey;
 }
 
 
-
 .btn {
-    background-color: #2cc3dc;
+    background-color: grey;
     color: white;
     border-color: white;
 }
