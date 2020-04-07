@@ -1,8 +1,9 @@
 body {
     background: url(59H-from-gratisography.JPG);
-    font-family: sans-serif;
     color: white;
+    font-family: 'Century Schoolbook', sans-serif;
     overflow-x: hidden;
+    font-size: 20px;
 }
 
 .fieldset {
@@ -19,7 +20,12 @@ body {
     opacity: 0.8;
 }
 
-legend{
+
+.content-section{
+    background-color: black;
+}
+
+.title{
     font-family: "Copperplate Gothic Bold";
     text-align: center;
     font-size: 1.8rem;
@@ -31,3 +37,15 @@ legend{
     padding-top: 2rem;
     color: white;
 }
+
+.btn-lg {
+    border-width: medium;
+    border-radius: 0;
+    padding: .3rem 1.3rem;
+    background-color: #4b515d;
+    border-color: #4b515d;
+    font-family: "Copperplate Gothic Bold";
+    position: relative;
+    left: 5%;
+}
+
