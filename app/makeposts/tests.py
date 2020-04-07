@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from makeposts.forms import CommentForm
-from .models import Post, Comments
+from .models import Post, Comments, Likes
 from users.models import Following
 
 
@@ -141,7 +141,7 @@ class FollowModelTest(TestCase):
         self.assertEqual(field_label, 'follower')
 
 
-class FollowTestView(TestCase):
+class FollowViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         user1 = User.objects.create(username='Test1')
@@ -165,3 +165,90 @@ class FollowTestView(TestCase):
         following = Following.objects.last()
         self.assertEqual(following.user_id, post.author)
         self.assertEqual(following.follower, user)
+
+
+class ProfileViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        user = User.objects.create(username='tester2')
+        user.set_password('1234asdasd!')
+        user.save()
+        user2 = User.objects.create(username='Test2')
+        user2.set_password('asdasd123')
+        user2.save()
+
+    def test_profile_redirect(self):
+        self.client.login(username='tester2', password='1234asdasd!')
+        username = User.objects.all().last()
+        response = self.client.get(f"/profile/{username}/")
+        self.assertEqual(str(response), '<HttpResponse status_code=200, "text/html; charset=utf-8">')
+
+class SearchViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        searcher = User.objects.create(username='tester')
+        searcher.set_password('1234asdasd!')
+        searcher.save()
+        searched = User.objects.create(username='tester1', password='1234asdasd!')
+
+    def test_search_view(self):
+        self.client.login(username='tester', password='1234asdasd!')
+        url = '{url}?{filter}={value}'.format(
+            url=reverse('insta-search'),
+            filter='q', value='tester1')
+        response = self.client.get(url)
+        self.assertRedirects(response, '/profile/tester1', status_code=302,
+                             target_status_code=301)
+
+    def test_search_fail(self):
+        self.client.login(username='tester', password='1234asdasd!')
+        url = '{url}?{filter}={value}'.format(
+            url=reverse('insta-search'),
+            filter='q', value='teste')
+        response = self.client.get(url)
+        self.assertRedirects(response, '/', status_code=302,
+                             target_status_code=200)
+
+    def test_query_search_filter(self):
+        self.client.login(username='tester', password='1234asdasd!')
+        self.assertQuerysetEqual(User.objects.filter(username__icontains='tester1'), ["<User: tester1>"])
+
+
+class LikemModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        user = User.objects.create(username='tester', password='1234asdasd!')
+        cwd = os.path.dirname(__file__)
+        file_path = os.path.join(cwd, '../media/test_files/myImage.jpg')
+        post = Post.objects.create(author=user, title="TitleForTests", image=File(open(file_path, 'rb')))
+        Likes.objects.create(post_id=post, liked_by=user)
+
+    def test_post_id(self):
+        post = Post.objects.last()
+        like = Likes.objects.last()
+        self.assertEqual(like.post_id, post)
+
+    def test_liker(self):
+        like = Likes.objects.last()
+        self.assertEqual(like.liked_by, User.objects.filter(username='tester').last())
+
+
+class LikesViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        user = User.objects.create(username='tester2')
+        user.set_password('1234asdasd!')
+        user.save()
+        cwd = os.path.dirname(__file__)
+        file_path = os.path.join(cwd, '../media/test_files/myImage.jpg')
+        post = Post.objects.create(author=user, title="TitleForTests", image=File(open(file_path, 'rb')))
+        Likes.objects.create(post_id=post, liked_by=user)
+
+    def test_like(self):
+        self.client.login(username='tester2', password='1234asdasd!')
+        user = User.objects.filter(username='tester2').last()
+        post = Post.objects.last()
+        self.client.get(f"/post/{post.id}/like/")
+        like = Likes.objects.last()
+        self.assertEqual(like.post_id, post)
+        self.assertEqual(like.liked_by, user)

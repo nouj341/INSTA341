@@ -19,12 +19,12 @@ def search(request, username=''):
                 usr = User.objects.get(username=s)
                 return redirect("/profile/" + s)
             except User.DoesNotExist:
-                usr = User.objects.get(email=s)
                 try:
                     usr = User.objects.get(email=s)
                     return redirect("/profile/" + usr.username)
                 except User.DoesNotExist:
                     return redirect("/")
+    return redirect("/")
 
 
 def suggest(request, text):
