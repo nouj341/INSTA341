@@ -40,6 +40,5 @@ Scenario #3
 Scenario #1
 ***
 * Given I'm in a role of a signed-in user
-* If I do not already follow a specific user
-* Then I see a "Follow" button on the navbar on the "User/Profile Page"
-* And I am directed to a Profile Page that includes the username and posts about the person I am following
+* When I want to view a display of one of my followers' posts
+* Then I click their respective usernames and I are directed to their "Profile Page", which showcases a collection of their posts
