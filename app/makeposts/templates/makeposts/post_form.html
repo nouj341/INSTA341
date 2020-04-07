@@ -1,33 +1,31 @@
-
 {% extends 'makeposts/home.html' %}
 {% load static %}
 <head>
     <title> Post </title>
     <link rel="stylesheet" href={% static "/css/bootstrap.min.css" %}>
-     <link rel="stylesheet" href={% static "../static/post.css" %}>
+    <link rel="stylesheet" href={% static "../static/home.css" %}>
 </head>
 
 {% load get_item %}
-<div>
-    {% block content %}
+{% block content %}
+    <div class="post-body">
 
-        <div class="content-section" style="margin-top: 80px">
-        <div class="bg-img">
+        <div class="post-form" style="margin-top: 80px">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Insta Post</legend>
+                    <legend class="border-bottom mb-4">Post a Picture</legend>
                     {{ form.as_p }}
                 </fieldset>
                 <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit">Post</button>
+                    <button class="btn btn-outline-light btn-lg" type="submit">Post</button>
                 </div>
             </form>
         </div>
-       </div>
-    {% endblock content %}
-</div>
 
+    </div>
+{% endblock content %}
+</div>
 
 
 
