@@ -28,3 +28,18 @@ Scenario #2
 * If I want to like the post of someone I am not following
 * Then I will visit their profile page which includes the display of all the posts  
 * Then I can click "Like" button and it will display the amount of likes next to the picture
+
+Scenario #3
+***
+* Given I'm in a role of a signed-in user
+* If I want to unlike a post that has been previously liked by myself
+* Then I can click "Unlike" button and the counter will not be present anymore. 
+
+**VISIT A USER PROFILE**
+
+Scenario #1
+***
+* Given I'm in a role of a signed-in user
+* If I do not already follow a specific user
+* Then I see a "Follow" button on the navbar on the "User/Profile Page"
+* And I am directed to a Profile Page that includes the username and posts about the person I am following
