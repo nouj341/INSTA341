@@ -192,9 +192,16 @@ div.desc {
     text-shadow: 1px 1px 2px #082b34;
 }
 
+.post-form{
+    font-family: 'Copperplate Gothic Bold';
+}
 
 
-
-
+.post-body{
+    width: 100rem;
+    height:200rem;
+    position: relative;
+    left: 5%;
+}
 
 
