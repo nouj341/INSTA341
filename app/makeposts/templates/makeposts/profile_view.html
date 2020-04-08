@@ -43,7 +43,7 @@
                                         </div>
 
                                         <div>
-                                            <a href="{% url 'post_detail' post.id %}"><img id="myImg" src="{{ post.image.url }}"></a>
+                                            <a href="{% url 'post-detail' post.id %}"><img id="myImg" src="{{ post.image.url }}"></a>
                                         </div>
 
 
@@ -54,9 +54,9 @@
 
                                         <div style = "position:relative; top: -45px; text-decoration:none; font-size: medium">
                                              {% if post.id in liked_by_self %}
-                                                <a class="button" href="{% url 'post_detail' post.id %}dislike">Unlike</a>
-                                            {% else %} <a class="button" href="{% url 'post_detail' post.id %}like">Like</a>
-                                            {% endif %} &nbsp;&nbsp;&nbsp;<a class="button" href="{% url 'post_detail' post.id %}">Comment</a>
+                                                <a class="button" href="{% url 'post-detail' post.id %}dislike">Unlike</a>
+                                            {% else %} <a class="button" href="{% url 'post-detail' post.id %}like">Like</a>
+                                            {% endif %} &nbsp;&nbsp;&nbsp;<a class="button" href="{% url 'post-detail' post.id %}">Comment</a>
 
                                         </div>
                                     </div>
