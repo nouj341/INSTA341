@@ -54,7 +54,7 @@
 
                                         <div style = "position:relative; top: -45px; text-decoration:none; font-size: medium">
                                              {% if post.id in liked_by_self %}
-                                                <a class="button" href="{% url 'post_detail' post.id %}dislike">Dislike</a>
+                                                <a class="button" href="{% url 'post_detail' post.id %}dislike">Unlike</a>
                                             {% else %} <a class="button" href="{% url 'post_detail' post.id %}like">Like</a>
                                             {% endif %} &nbsp;&nbsp;&nbsp;<a class="button" href="{% url 'post_detail' post.id %}">Comment</a>
 
