@@ -25,3 +25,9 @@ Instagram is a viusal platform allowing users to upload inspirational images, co
 * HTML/CSS
 * JavaScript
 * Bootstrap
+
+## Naming Conventions
+* Variables and Instance methods: snake case all lowercase
+* Class methods: camelCase but with first letter lowercase
+* Class Names: CamelCase
+* Styling Guide: PEP 8
